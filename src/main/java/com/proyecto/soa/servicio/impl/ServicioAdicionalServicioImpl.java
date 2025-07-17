@@ -39,4 +39,57 @@ public class ServicioAdicionalServicioImpl implements IServicioAdicionalServicio
     public void eliminarPorId(Long id) {
         servicioAdicionalDAO.eliminarPorId(id);
     }
+
+    @Override
+    public ServicioAdicionalDTO aDTO(ServicioAdicional servicioAdicional) {
+        return ServicioAdicionalDTO.builder()
+                .id(servicioAdicional.getId())
+                .nombre(servicioAdicional.getNombre())
+                .descripcion(servicioAdicional.getApellido())
+                .precio(servicioAdicional.getPrecio())
+                .tipoServicio(servicioAdicional.getTipoServicio())
+                .contratoServicioList(servicioAdicional.getContratoServicioList())
+                .build();
+    }
+
+    @Override
+    public ServicioAdicional desdeDTO(ServicioAdicionalDTO servicioAdicionalDTO) {
+        return ServicioAdicional.builder()
+                .nombre(servicioAdicionalDTO.getNombre())
+                .descripcion(servicioAdicionalDTO.getDescripcion())
+                .precio(servicioAdicionalDTO.getPrecio())
+                .tipoServicio(servicioAdicionalDTO.getTipoServicio())
+                .contratoServicioList(servicioAdicionalDTO.getContratoServicioList())
+                .build();
+    }
+    
+    @Override
+    public List<ServicioAdicionalDTO> aDTOList(List<ServicioAdicional> serviciosadicionales) {
+        return serviciosadicionales.stream().map(this::aDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public ResponseEntity<?> guardarServicioAdicional(ServicioAdicionalDTO servicioAdicionalDTO) throws URISyntaxException {
+        if (servicioAdicionalDTO.getNombre().isBlank()) {
+            return ResponseEntity.badRequest().build();
+        }
+        ServicioAdicional servicioAdicional = desdeDTO(servicioAdicionalDTO);
+        guardar(servicioAdicional);
+        return ResponseEntity.created(new URI("/api/servicioadicional/guardar")).build();
+    }
+    
+    @Override
+    public ResponseEntity<?> actualizarServicioAdicional(Long id, ServicioAdicionalDTO servicioAdicionalDTO) {
+        Optional<ServicioAdicional> servicioAdicionalOptional = encontrarPorId(id);
+        if (servicioAdicionalOptional.isPresent()) {
+            ServicioAdicional servicioAdicional = servicioAdicionalOptional.get();
+            servicioAdicional.setNombre(servicioAdicionalDTO.getNombre());
+            servicioAdicional.setDescripcion(servicioAdicionalDTO.getDescripcion());
+            servicioAdicional.setPrecio(servicioAdicionalDTO.getPrecio());
+            servicioAdicional.setTipoServicio(servicioAdicionalDTO.getTipoServicio());
+            guardar(servicioAdicional);
+            return ResponseEntity.ok("Registro actualizado");
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

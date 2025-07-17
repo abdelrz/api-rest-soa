@@ -39,4 +39,60 @@ public class TicketSoporteServicioImpl implements ITicketSoporteServicio {
     public void eliminarPorId(Long id) {
         ticketSoporteDAO.eliminarPorId(id);
     }
+
+    @Override
+    public TicketSoporteDTO aDTO(TicketSoporte ticketSoporte) {
+        return TicketSoporteDTO.builder()
+                .id(ticketSoporte.getId())
+                .asunto(ticketSoporte.getAsunto())
+                .descripcion(ticketSoporte.getDescripcion())
+                .fechaCreacion(ticketSoporte.getFechaCreacion())
+                .estado(ticketSoporte.getEstado())
+                .prioridad(ticketSoporte.getPrioridad())
+                .cliente(ticketSoporte.getCliente())
+                .contrato(ticketSoporte.getContrato())
+                .build();
+    }
+
+    @Override
+    public TicketSoporte desdeDTO(TicketSoporteDTO ticketSoporteDTO) {
+        return TicketSoporte.builder()
+                .asunto(ticketSoporteDTO.getAsunto())
+                .descripcion(ticketSoporteDTO.getDescripcion())
+                .fechaCreacion(ticketSoporteDTO.getFechaCreacion())
+                .estado(ticketSoporteDTO.getEstado())
+                .prioridad(ticketSoporteDTO.getPrioridad())
+                .build();
+    }
+    
+    @Override
+    public List<TicketSoporteDTO> aDTOList(List<TicketSoporte> ticketssoporte) {
+        return ticketssoporte.stream().map(this::aDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public ResponseEntity<?> guardarTicketSoporte(TicketSoporteDTO ticketSoporteDTO) throws URISyntaxException {
+        if (ticketSoporteDTO.getAsunto().isBlank()) {
+            return ResponseEntity.badRequest().build();
+        }
+        TicketSoporte ticketSoporte = desdeDTO(TicketSoporteDTO);
+        guardar(ticketSoporte);
+        return ResponseEntity.created(new URI("/api/ticketsoporte/guardar")).build();
+    }
+    
+    @Override
+    public ResponseEntity<?> actualizarTicketSoporte(Long id, TicketSoporteDTO ticketSoporteDTO) {
+        Optional<TicketSoporte> ticketSoporteOptional = encontrarPorId(id);
+        if (ticketSoporteOptional.isPresent()) {
+            TicketSoporte ticketSoporte = ticketSoporteOptional.get();
+            ticketSoporte.setAsunto(ticketSoporteDTO.getAsunto());
+            ticketSoporte.setDescripcion(ticketSoporteDTO.getDescripcion());
+            ticketSoporte.setFechaCreacion(ticketSoporteDTO.getFechaCreacion());
+            ticketSoporte.setEstado(ticketSoporteDTO.getEstado());
+            ticketSoporte.setPrioridad(ticketSoporteDTO.getPrioridad());
+            guardar(ticketSoporteDTO);
+            return ResponseEntity.ok("Registro actualizado");
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
