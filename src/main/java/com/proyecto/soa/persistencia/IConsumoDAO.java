@@ -5,7 +5,7 @@ import com.proyecto.soa.entidad.Consumo;
 import java.util.List;
 import java.util.Optional;
 
-public Interface IConsumoDAO {
+public interface IConsumoDAO {
     List<Consumo> encontrarTodos();
     Optional<Consumo> encontrarPorId(Long id);
     void guardar(Consumo consumo);

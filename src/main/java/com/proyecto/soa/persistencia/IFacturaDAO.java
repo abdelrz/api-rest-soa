@@ -5,7 +5,7 @@ import com.proyecto.soa.entidad.Factura;
 import java.util.List;
 import java.util.Optional;
 
-public Interface IFacturaDAO {
+public interface IFacturaDAO {
     List<Factura> encontrarTodos();
     Optional<Factura> encontrarPorId(Long id);
     void guardar(Factura factura);

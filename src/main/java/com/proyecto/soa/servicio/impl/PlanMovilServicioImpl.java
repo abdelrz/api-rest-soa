@@ -75,7 +75,7 @@ public class PlanMovilServicioImpl implements IPlanMovilServicio {
 
     @Override
     public ResponseEntity<?> guardarPlanMovil(PlanMovilDTO planMovilDTO) throws URISyntaxException {
-        if (planMovilDTO.getFechaEmision().isBlank()) {
+        if (planMovilDTO.getNombre().isBlank()) {
             return ResponseEntity.badRequest().build();
         }
         PlanMovil planMovil = desdeDTO(planMovilDTO);
@@ -88,13 +88,13 @@ public class PlanMovilServicioImpl implements IPlanMovilServicio {
         Optional<PlanMovil> planMovilOptional = encontrarPorId(id);
         if (planMovilOptional.isPresent()) {
             PlanMovil planMovil = planMovilOptional.get();
-            planMovil.setNombre(facturaDTO.getNombre());
-            planMovil.setDescripcion(facturaDTO.getDescripcion());
-            planMovil.setPrecioMensual(facturaDTO.getPrecioMensual());
-            planMovil.setGbDato(facturaDTO.getGbDato());
-            planMovil.setMinutoLlamada(facturaDTO.getMinutoLlamada());
-            planMovil.setSmsIncluido(facturaDTO.getSmsIncluido());
-            planMovil.setTipoPlan(facturaDTO.getTipoPlan());
+            planMovil.setNombre(planMovilDTO.getNombre());
+            planMovil.setDescripcion(planMovilDTO.getDescripcion());
+            planMovil.setPrecioMensual(planMovilDTO.getPrecioMensual());
+            planMovil.setGbDato(planMovilDTO.getGbDato());
+            planMovil.setMinutoLlamada(planMovilDTO.getMinutoLlamada());
+            planMovil.setSmsIncluido(planMovilDTO.getSmsIncluido());
+            planMovil.setTipoPlan(planMovilDTO.getTipoPlan());
 
             guardar(planMovil);
             return ResponseEntity.ok("Registro actualizado");

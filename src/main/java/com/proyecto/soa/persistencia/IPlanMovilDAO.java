@@ -5,7 +5,7 @@ import com.proyecto.soa.entidad.PlanMovil;
 import java.util.List;
 import java.util.Optional;
 
-public Interface IPlanMovilDAO {
+public interface IPlanMovilDAO {
     List<PlanMovil> encontrarTodos();
     Optional<PlanMovil> encontrarPorId(Long id);
     void guardar(PlanMovil planMovil);

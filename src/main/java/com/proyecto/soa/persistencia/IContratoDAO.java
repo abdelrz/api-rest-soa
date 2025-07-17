@@ -5,7 +5,7 @@ import com.proyecto.soa.entidad.Contrato;
 import java.util.List;
 import java.util.Optional;
 
-public Interface IContratoDAO {
+public interface IContratoDAO {
     List<Contrato> encontrarTodos();
     Optional<Contrato> encontrarPorId(Long id);
     void guardar(Contrato contrato);

@@ -5,7 +5,7 @@ import com.proyecto.soa.entidad.ServicioAdicional;
 import java.util.List;
 import java.util.Optional;
 
-public Interface IServicioAdicionalDAO {
+public interface IServicioAdicionalDAO {
     List<ServicioAdicional> encontrarTodos();
     Optional<ServicioAdicional> encontrarPorId(Long id);
     void guardar(ServicioAdicional servicioAdicional);
