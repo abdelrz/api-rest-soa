@@ -33,7 +33,7 @@ public class ContratoServicioControlador {
     @GetMapping("/encontrarTodos")
     public ResponseEntity<?> encontrarTodos() {
         List<ContratoServicioDTO> contratoServicioServiceDTOList = contratoServicioService.aDTOList(contratoServicioService.encontrarTodos());
-        return ResponseEntity.ok(contratoServicioDTOList);
+        return ResponseEntity.ok(contratoServicioServiceDTOList);
     }
 
     @PostMapping("/guardar")

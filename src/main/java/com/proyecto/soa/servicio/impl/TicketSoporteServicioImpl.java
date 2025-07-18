@@ -75,7 +75,7 @@ public class TicketSoporteServicioImpl implements ITicketSoporteServicio {
         if (ticketSoporteDTO.getAsunto().isBlank()) {
             return ResponseEntity.badRequest().build();
         }
-        TicketSoporte ticketSoporte = desdeDTO(TicketSoporteDTO);
+        TicketSoporte ticketSoporte = desdeDTO(ticketSoporteDTO);
         guardar(ticketSoporte);
         return ResponseEntity.created(new URI("/api/ticketsoporte/guardar")).build();
     }
@@ -90,7 +90,7 @@ public class TicketSoporteServicioImpl implements ITicketSoporteServicio {
             ticketSoporte.setFechaCreacion(ticketSoporteDTO.getFechaCreacion());
             ticketSoporte.setEstado(ticketSoporteDTO.getEstado());
             ticketSoporte.setPrioridad(ticketSoporteDTO.getPrioridad());
-            guardar(ticketSoporteDTO);
+            guardar(ticketSoporte);
             return ResponseEntity.ok("Registro actualizado");
         }
         return ResponseEntity.notFound().build();

@@ -67,7 +67,7 @@ public class ContratoServicioImpl implements IContratoServicio {
                 .fechaFin(contratoDTO.getFechaFin())
                 .estadoContrato(contratoDTO.getEstadoContrato())
                 .numeroMovil(contratoDTO.getNumeroMovil())
-                .operadorAnterior(contratoDTO.getOperadotAnterior())
+                .operadorAnterior(contratoDTO.getOperadorAnterior())
                 .cicloFacturacion(contratoDTO.getCicloFacturacion())
                 .build();
     }
@@ -79,7 +79,7 @@ public class ContratoServicioImpl implements IContratoServicio {
 
     @Override
     public ResponseEntity<?> guardarContrato(ContratoDTO contratoDTO) throws URISyntaxException {
-        if (contratoDTO.getFechaInicio().isBlank()) {
+        if (contratoDTO.getEstadoContrato().isBlank()) {
             return ResponseEntity.badRequest().build();
         }
         Contrato contrato = desdeDTO(contratoDTO);
@@ -93,8 +93,8 @@ public class ContratoServicioImpl implements IContratoServicio {
         if (contratoOptional.isPresent()) {
             Contrato contrato = contratoOptional.get();
             contrato.setFechaInicio(contratoDTO.getFechaInicio());
-            contrato.setFechaFin(contratoDTO.getMinutoConsumido());
-            contrato.setEstadoContrato(contratoDTO.getSmsConsumido());
+            contrato.setFechaFin(contratoDTO.getFechaFin());
+            contrato.setEstadoContrato(contratoDTO.getEstadoContrato());
             contrato.setNumeroMovil(contratoDTO.getNumeroMovil());
             contrato.setOperadorAnterior(contratoDTO.getOperadorAnterior());
             contrato.setCicloFacturacion(contratoDTO.getCicloFacturacion());

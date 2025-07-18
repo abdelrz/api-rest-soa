@@ -75,7 +75,7 @@ public class FacturaServicioImpl implements IFacturaServicio {
 
     @Override
     public ResponseEntity<?> guardarFactura(FacturaDTO facturaDTO) throws URISyntaxException {
-        if (facturaDTO.getFechaEmision().isBlank()) {
+        if (facturaDTO.getNumeroFactura().isBlank()) {
             return ResponseEntity.badRequest().build();
         }
         Factura factura = desdeDTO(facturaDTO);

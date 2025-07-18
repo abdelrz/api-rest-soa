@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class ContratoServicioServiceImpl implements IContratoServicio {
+public class ContratoServicioServiceImpl implements IContratoServicioService {
     @Autowired
     private IContratoServicioDAO contratoServicioDAO;
 
@@ -68,7 +68,7 @@ public class ContratoServicioServiceImpl implements IContratoServicio {
 
     @Override
     public ResponseEntity<?> guardarContratoServicio(ContratoServicioDTO contratoServicioDTO) throws URISyntaxException {
-        if (contratoServicioDTO.getFechaActivacion().isBlank()) {
+        if (contratoServicioDTO.getEstado().isBlank()) {
             return ResponseEntity.badRequest().build();
         }
         ContratoServicio contratoServicio = desdeDTO(contratoServicioDTO);

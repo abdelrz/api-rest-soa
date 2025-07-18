@@ -67,7 +67,7 @@ public class ConsumoServicioImpl implements IConsumoServicio {
 
     @Override
     public ResponseEntity<?> guardarConsumo(ConsumoDTO consumoDTO) throws URISyntaxException {
-        if (consumoDTO.getNombre().isBlank()) {
+        if (consumoDTO.getMinutoConsumido() == 0) {
             return ResponseEntity.badRequest().build();
         }
         Consumo consumo = desdeDTO(consumoDTO);

@@ -45,7 +45,7 @@ public class ServicioAdicionalServicioImpl implements IServicioAdicionalServicio
         return ServicioAdicionalDTO.builder()
                 .id(servicioAdicional.getId())
                 .nombre(servicioAdicional.getNombre())
-                .descripcion(servicioAdicional.getApellido())
+                .descripcion(servicioAdicional.getDescripcion())
                 .precio(servicioAdicional.getPrecio())
                 .tipoServicio(servicioAdicional.getTipoServicio())
                 .contratoServicioList(servicioAdicional.getContratoServicioList())
